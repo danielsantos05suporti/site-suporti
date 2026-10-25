@@ -824,9 +824,12 @@ footer{background:var(--ink);color:var(--on-dark-muted);padding-block:56px 30px}
   .wa-menu{width:min(270px,calc(100vw - 28px))}
 }
 
+/* Com "reduzir movimento" ativo no aparelho: as telas demonstrativas continuam animadas
+   (ficam dentro de quadros e explicam o produto); só os efeitos decorativos param. */
 @media (prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation:none!important;transition:none!important}
   html{scroll-behavior:auto}
+  .callouts li,.wa-float .ball::before,.eq .scan,.eq .paper,.eq .led{animation:none!important}
+  .btn:hover,.eq:hover{transform:none}
 }
 </style>
 </head>
@@ -1673,7 +1676,7 @@ footer{background:var(--ink);color:var(--on-dark-muted);padding-block:56px 30px}
   "use strict";
   var WA = "5534991340532", WA_TEC = "5534993080011";
   var waLink = function(t, num){ return "https://wa.me/" + (num || WA) + "?text=" + encodeURIComponent(t); };
-  var RM = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var RM = false; /* demonstrações animadas sempre ativas, inclusive no celular */
   var sleep = function(ms){ return new Promise(function(r){ setTimeout(r, ms); }); };
   var $ = function(s, c){ return (c || document).querySelector(s); };
   var $$ = function(s, c){ return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
